@@ -88,7 +88,7 @@ export const login = (req,res) =>
 
         const cookieOptions ={
             expiresIn: new Date(Date.now() + COOKIE_EXPIRES * 24 * 60 * 60 * 1000),
-            httpOnly: true
+            httpOnly: false
         }
 
         res.cookie("userRegistered",token, cookieOptions);
@@ -111,7 +111,7 @@ export const isLoggedIn = async (req, res, next) => {
         try {
             // 1. Verify the token
             const decoded = await jwt.verify(req.cookies.userRegistered,
-                process.env.JWT_SECRET
+                JWT_SECRET
             );
             console.log(decoded);
 
