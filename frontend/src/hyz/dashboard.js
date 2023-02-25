@@ -23,10 +23,7 @@ const Dashboard = () => {
     }
 
 
-    const c = window.localStorage.getItem("myTokens");
-    if (!c){
-        return <ErrorPage></ErrorPage>
-    }
+
 
 
 
@@ -48,8 +45,17 @@ const Dashboard = () => {
         }
 
     }
-    const a = getInsuranceClaim()
-    console.log(a)
+
+    useEffect(() => {
+        const a = getInsuranceClaim()
+        setClaims(a)
+    }
+    , [])
+
+    const c = window.localStorage.getItem("myTokens");
+    if (!c){
+        return <ErrorPage></ErrorPage>
+    }
     // GET REQUEST insurance policy
     function getInsurancePolicy(){
         axios
@@ -103,7 +109,7 @@ const Dashboard = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {claims.length > 0 ? claims.map((claim) => (<Claim claimId={claim.claimId} insuranceType={claim.insuranceType} purpose={claim.purpose} amount={claim.amount} status={claim.status}/>)) :<td>User has no claims</td>}
+                    {claims.length > 0 ? claims.map((claim) => (<Claim claimId={claim.ClaimID} insuranceType={claim.InsuranceType} purpose={claim.Purpose} amount={claim.Amount} status={claim.Status}/>)) :<td>User has no claims</td>}
                 </tbody>
 
             </Table>
