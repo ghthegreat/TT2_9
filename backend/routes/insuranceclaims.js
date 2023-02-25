@@ -1,5 +1,5 @@
 import express from 'express';
-
+import {create, delete} from "../controllers/controller"
 const router = express.Router();
 
 // will start with /claims
@@ -8,6 +8,8 @@ const router = express.Router();
 router.get('/', (req, res) => {
     res.send("Default page")
 });
+router.post('/', create)
+router.post('/', delete)
 
 
 export default router;
