@@ -1,11 +1,12 @@
-require('dotenv').config()
+import config from 'dotenv';
+import express from "express";
+import mysql from 'mysql';
+import cookieParser from 'cookie-parser';
+import claimsRoutes from "./routes/insuranceclaims.js"
 
-
-const express = require('express')
-const mysql = require('mysql')
 const app = express()
 const PORT = 5000
-const cookieParser = require('cookie-parser')
+//const cookieParser = require('cookie-parser')
 
 
 const db = mysql.createConnection({
