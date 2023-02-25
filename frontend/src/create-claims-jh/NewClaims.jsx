@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import React from 'react'
 import xtype from 'xtypejs'
 import Dropdown from 'react-bootstrap/Dropdown';
+import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form'
 import './NewClaims.css'
 
@@ -39,7 +40,10 @@ export function NewClaims(){
     } else if (claim_amt.length > 10) {
       errors.claim_amt = 'Exceeded max character limit!';
     }
-
+    // Validate date
+    if (!date) {
+        errors.date = 'Date is required';
+      } 
     return errors;
   };
 
@@ -61,7 +65,7 @@ export function NewClaims(){
     const errors = validate();
 
     setErrors(errors);
-  }, [first_name, last_name, claim_amt]); //, last_name, date, claim_amt]);
+  }, [first_name, last_name, date, claim_amt]); //, last_name, date, claim_amt]);
 
 
 
@@ -146,6 +150,12 @@ export function NewClaims(){
                             />
                             {errors.claim_amt && <div className="text-danger">{errors.claim_amt}</div>}
                         </Form.Group>
+
+                    </div>
+                    <div className= "submit-login-form">
+                    <Button variant="primary" type="submit">
+                        Submit
+                    </Button>
                     </div>
                 </div>
 
