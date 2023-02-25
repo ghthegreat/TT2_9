@@ -19,7 +19,7 @@ function App() {
     <Router>
       <Routes >
       <Route path="/test" element={<ErrorPage></ErrorPage>}></Route>
-      <Route path="login" element={<UsersProvider><LoginPage></LoginPage></UsersProvider>}></Route>
+      <Route path="/login" element={<UsersProvider><LoginPage></LoginPage></UsersProvider>}></Route>
       <Route path="/create-claims" element = {<NewClaims/>}></Route>
       <Route index element={<HomePage></HomePage>}></Route>
         <Route index element={<HomePage></HomePage>} />
