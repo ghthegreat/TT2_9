@@ -1,6 +1,6 @@
 import express from 'express';
 import mysql from "mysql";
-import moment from "moment"; 
+import moment from "moment";
 import {create,remove,userInsurance,userClaims} from "../controllers/controller.js"
 
 const router = express.Router();
@@ -38,7 +38,7 @@ router.patch("/editclaims", (req, res) => {
             console.log(results)
             res.status(200).json(results[1])
         }
-          
+
     })
 
 })
@@ -50,7 +50,7 @@ function updateStamp() {
 
 //route is localhost::5000/claims
 router.get('/getClaims', async (req, res) => {
-    const id = req.body.employeeId
+    const id = req.query.employeeId
     db.query('SELECT * FROM InsurancePolicies IP RIGHT JOIN InsuranceClaims IC on IC.InsuranceID = IP.InsuranceID WHERE IP.EmployeeID = ?', id ,async (err,results) =>{
         if(err)
             console.log(err.message)

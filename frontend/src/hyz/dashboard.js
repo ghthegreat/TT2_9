@@ -29,13 +29,19 @@ const Dashboard = () => {
     }
 
 
+
     // GET REQUEST insurance claim
     async function getInsuranceClaim() {
         try{
-            const result = await axios.get('http://localhost:5000/claims/getClaims')
+            const a = window.localStorage.getItem("id")
+            const result = await axios.get('http://localhost:5000/claims/getClaims',  {
+                params: {
+                  employeeId: a
+                }
+              })
             setClaims(result.data);
             console.log(result.data);
-             //return result;
+             return result;
         }
         catch(err){
             console.error(err)
