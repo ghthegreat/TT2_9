@@ -20,7 +20,7 @@ const db = mysql.createConnection({
 })
 
 console.log(process.env.DATABASE_HOST)
-db.connect((err) => 
+db.connect((err) =>
 {
     if(err)
         console.log(err.message)
