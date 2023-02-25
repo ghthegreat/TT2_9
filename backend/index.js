@@ -1,18 +1,22 @@
-require('dotenv').config()
+//require('dotenv').config()
+import config from 'dotenv';
+import mysql from 'mysql';
+import express from 'express';
+import cookieParser from 'cookie-parser';
+import claimsRoutes from './routes/insuranceclaims.js'
 
-
-const express = require('express')
-const mysql = require('mysql')
+// const express = require('express')
+// const mysql = require('mysql')
 const app = express()
 const PORT = 5000
-const cookieParser = require('cookie-parser')
+// const cookieParser = require('cookie-parser')
 
 
 const db = mysql.createConnection({
-    host: process.env.DATABASE_HOST,
-    user: process.env.DATABASE_USER,
-    password: process.env.DATABASE_PW,
-    database: process.env.DATABASE_NAME,
+    host: 'awshackathondb.cnpaqptltymp.ap-northeast-1.rds.amazonaws.com',
+    user: 'root',
+    password: 'hackathon',
+    database: 'InsuranceData',
     port: 3306
 })
 
