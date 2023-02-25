@@ -43,14 +43,48 @@ export function NewClaims(){
                         <Form.Label>First name</Form.Label>
                         <Form.Control 
                             type="text" 
-                            placeholder="Enter your first name" 
-                            name="username"
+                            placeholder="Input your first name" 
+                            name="first_name"
                             // value={twoWayBind.username}
                             // onChange = {updateFormField}
                         />
                     </Form.Group>
                 </div>
             </div>
+
+            <div className="login-section">
+                <div className = "login-field">
+                    <Form.Group className="mb-1" controlId="exampleForm.ControlInput1">
+                        <Form.Label>Last name</Form.Label>
+                        <Form.Control 
+                            type="text" 
+                            placeholder="Input your last name" 
+                            name="last_name"
+                            // value={twoWayBind.username}
+                            // onChange = {updateFormField}
+                        />
+                    </Form.Group>
+                </div>
+            </div>
+
+            <div className="login-section">
+                <div className = "login-field">
+                    <Form.Group className="mb-1" controlId="exampleForm.ControlInput1">
+                        <Form.Label>Claim amount</Form.Label>
+                        <Form.Control 
+                            type="number" 
+                            pattern = '/^([1-9][0-9]*)$/'
+                            max = "10"
+                            placeholder="Input claim amount" 
+                            name="amount"
+                            // value={twoWayBind.username}
+                            // onChange = {updateFormField}
+                        />
+                    </Form.Group>
+                </div>
+            </div>
+
+
         </div>
     )
 }
