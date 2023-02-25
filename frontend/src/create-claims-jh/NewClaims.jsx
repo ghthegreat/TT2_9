@@ -5,15 +5,31 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form'
 import './NewClaims.css'
+import axios from 'axios'
 
 export function NewClaims(){
+    const BASE_URL = "http://localhost:5000"
+
 
     // Initialize state for form fields and validation errors
-  const [first_name, setFirstName] = useState('');
-  const [last_name, setLastName] = useState('');
-  const [claim_amt, setClaimAmt] = useState('');
+//   const [firstName, setFirstName] = useState('');
+//   const [lastName, setLastName] = useState('');
+//   const [claimAmt, setClaimAmt] = useState('');
+//   const [date, setDate] = useState('');
+//   const [errors, setErrors] = useState({});
+//   const [toggleFollowUp , setFollowUpToggle] = useState(false)
+
+const [insuranceId, setInsuranceId] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [claimAmt, setClaimAmt] = useState('');
+  const [purpose, setPurpose] = useState('');
   const [date, setDate] = useState('');
   const [errors, setErrors] = useState({});
+  const [followUp , setFollowUp] = useState();
+  const [previousClaimId , setPreviousClaim] = useState();
+  const [toggleFollowUp , setFollowUpToggle] = useState(false)
+
 
   // Define validation rules
   const validate = () => {
@@ -25,20 +41,20 @@ export function NewClaims(){
     // }
 
     // Validate first name
-    if (!first_name) {
-      errors.first_name = 'First Name is required';
-    } else if (xtype.type(first_name)!='string') {
-      errors.first_name = 'First name is invalid';
+    if (!firstName) {
+      errors.firstName = 'First Name is required';
+    } else if (xtype.type(firstName)!='string') {
+      errors.firstName = 'First name is invalid';
     }
     //Validate last name
-    if (!last_name) {
-        errors.last_name = 'Last Name is required';
+    if (!lastName) {
+        errors.lastName = 'Last Name is required';
       } 
     // Validate claim amount
-    if (!claim_amt) {
-      errors.claim_amt = 'Claim amount is required';
-    } else if (claim_amt.length > 10) {
-      errors.claim_amt = 'Exceeded max character limit!';
+    if (!claimAmt) {
+      errors.claimAmt = 'Claim amount is required';
+    } else if (claimAmt.length > 10) {
+      errors.claimAmt = 'Exceeded max character limit!';
     }
     // Validate date
     if (!date) {
@@ -65,9 +81,23 @@ export function NewClaims(){
     const errors = validate();
 
     setErrors(errors);
-  }, [first_name, last_name, date, claim_amt]); //, last_name, date, claim_amt]);
+  }, [firstName, lastName, date, claimAmt]); //, lastName, date, claimAmt]);
 
+  //api consts
+  let content = {
+    "insuranceID": insuranceId,
+    "firstName": firstName,
+    "lastName": lastName,
+    "date": date,
+    "claimAmt": claimAmt,
+    "purpose": purpose,
+    "followUp": "No",
+    "previousClaimId": null
+  }
 
+  const submit = async (req , res) => {
+    let response = await axios.post(BASE_URL + "/claims/create" , content)
+  }
 
     return(
         <form onSubmit={handleSubmit}>
@@ -78,7 +108,7 @@ export function NewClaims(){
                     {/* <option>-- Models --</option> */}
                     {Array.from({ length: 2 }).map((_, idx) => (
                         <option value= "1009">
-                            Car
+                            Sample Insurance Policy
                         </option>
                     ))}
                     </Form.Select>
@@ -91,13 +121,26 @@ export function NewClaims(){
                             <Form.Control 
                                 type="text" 
                                 placeholder="Input your first name" 
-                                name="first_name"
-                                value={first_name} 
+                                name="firstName"
+                                value={firstName} 
                                 onChange={(e) => setFirstName(e.target.value)} 
                                 // value={twoWayBind.username}
                                 // onChange = {updateFormField}
                             />
-                            {errors.first_name && <div className="text-danger">{errors.first_name}</div>}
+                            {errors.firstName && <div className="text-danger">{errors.firstName}</div>}
+                        </Form.Group>
+                        <Form.Group className="mb-1" controlId="exampleForm.ControlInput1">
+                            <Form.Label>Last name</Form.Label>
+                            <Form.Control 
+                                type="text" 
+                                placeholder="Input your last name" 
+                                name="lastName"
+                                value={lastName} 
+                                onChange={(e) => setLastName(e.target.value)}
+                                // value={twoWayBind.username}
+                                // onChange = {updateFormField}
+                            />
+                            {errors.lastName && <div className="text-danger">{errors.lastName}</div>}
                         </Form.Group>
                         <Form.Group className="mb-1" controlId="exampleForm.ControlInput1">
                             <Form.Label>Date of Expense</Form.Label>
@@ -115,23 +158,23 @@ export function NewClaims(){
                     </div>
                 </div>
 
-                <div className="login-section">
+                {/* <div className="login-section">
                     <div className = "login-field">
-                        <Form.Group className="mb-1" controlId="exampleForm.ControlInput1">
+                        { <Form.Group className="mb-1" controlId="exampleForm.ControlInput1">
                             <Form.Label>Last name</Form.Label>
                             <Form.Control 
                                 type="text" 
                                 placeholder="Input your last name" 
-                                name="last_name"
-                                value={last_name} 
+                                name="lastName"
+                                value={lastName} 
                                 onChange={(e) => setLastName(e.target.value)}
                                 // value={twoWayBind.username}
                                 // onChange = {updateFormField}
                             />
-                            {errors.last_name && <div className="text-danger">{errors.last_name}</div>}
-                        </Form.Group>
+                            {errors.lastName && <div className="text-danger">{errors.lastName}</div>}
+                        </Form.Group> }
                     </div>
-                </div>
+                </div> */}
 
                 <div className="login-section">
                     <div className = "login-field">
@@ -143,15 +186,63 @@ export function NewClaims(){
                                 max = "10"
                                 placeholder="Input claim amount" 
                                 name="amount"
-                                value={claim_amt} 
+                                value={claimAmt} 
                                 onChange={(e) => setClaimAmt(e.target.value)}
                                 // value={twoWayBind.username}
                                 // onChange = {updateFormField}
                             />
-                            {errors.claim_amt && <div className="text-danger">{errors.claim_amt}</div>}
+                            {errors.claimAmt && <div className="text-danger">{errors.claimAmt}</div>}
                         </Form.Group>
+                        <div className="login-section">
+                        <div className = "login-field">
+                            <Form.Group className="mb-1" controlId="exampleForm.ControlInput1">
+                                <Form.Label>Purpose of claim</Form.Label>
+                                <Form.Control 
+                                    type="text" 
+                                    placeholder="Purpose of claim" 
+                                    name="last_name"
+                                    // value={twoWayBind.username}
+                                    // onChange = {updateFormField}
+                                />
+                            </Form.Group>
+                        </div>
+            </div>
+                        <div className="mb-3 d-flex">
+                        <Form.Check 
+                            className = "followUpCheck" 
+                            inline label="Have follow up" 
+                            //name="tags_id" type='checkbox' 
+                            //id="inline-checkbox-1" 
+                            value = {toggleFollowUp}
+                            //checked={this.state.tags_id.includes(this.state.tagsData[idx]._id)}
+                            onChange = {()=>{setFollowUpToggle((prevState)=> {
+                                return !prevState
+                            })}}
+                        />
+                        </div>
+
+                        
+                    {
+                    toggleFollowUp ?
+                    <div>
+                    <Form.Label>Insurance Policy</Form.Label>
+                    <Form.Select aria-label="Default select example" name="variantId" /*onChange={updateFormField}*/>
+                    {/* <option>-- Models --</option> */}
+                    {Array.from({ length: 4 }).map((_, idx) => (
+                        <option value= "1009">
+                            Sample insurance ID
+                        </option>
+                    ))}
+                    </Form.Select>
+                    </div>
+                    :
+
+                    <h1>No follow up</h1>
+
+                    }
 
                     </div>
+
                     <div className= "submit-login-form">
                     <Button variant="primary" type="submit">
                         Submit
