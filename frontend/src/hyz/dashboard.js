@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
+import {ErrorPage} from '../ErrorPage';
 
 const Dashboard = () => {
     // const [claimID, setClaimID] = useState('');
@@ -21,7 +22,10 @@ const Dashboard = () => {
     }
 
 
-
+    const c = window.localStorage.getItem("myTokens");
+    if (!c){
+        return <ErrorPage></ErrorPage> 
+    }
 
 
     // GET REQUEST insurance claim
@@ -50,9 +54,9 @@ const Dashboard = () => {
         })
         .catch(err => console.error(err));
     }
-
+/*
     useEffect(() => {
-        getInsuranceClaim() 
+        //getInsuranceClaim() 
     },[])
 
     useEffect(() => {
@@ -62,7 +66,7 @@ const Dashboard = () => {
 
 
     }, [claims])
-
+*/
     return (
         <div className='content'>
             <div className='headcontainer'>
