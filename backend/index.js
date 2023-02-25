@@ -1,13 +1,16 @@
-const express = require("express");
+import express from "express";
+import bodyParser from "body-parser";
+import sql from "mysql";
 
-const PORT = process.env.PORT || 3001;
+import claimsRoutes from "./routes/insuranceclaims.js";
 
 const app = express();
+const PORT = 5000;
 
-app.listen(PORT, () => {
-  console.log(`Server listening on ${PORT}`);
-});
+app.use(bodyParser.json());
 
-app.get('/', (req, res) => {
-    res.send({ express: 'YOUR EXPRESS BACKEND IS CONNECTED TO REACT' }); 
-  }); 
+app.use("/claims", claimsRoutes);
+app.get("/", (req, res) => res.send("Welcome to the Users API!"));
+app.all("*", (req, res) =>res.send("You've tried reaching a route that doesn't exist."));
+
+app.listen(PORT, () =>console.log(`Server running on port: http://localhost:${PORT}`));
