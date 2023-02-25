@@ -1,11 +1,12 @@
-import React from 'react'
-import Dropdown from 'react-bootstrap/Dropdown';
+import React, { useState } from 'react'
+//import Dropdown from 'react-bootstrap/Dropdown';
 import Form from 'react-bootstrap/Form'
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import './NewClaims.css'
 
 export function NewClaims(){
 
-
+    const [toggleFollowUp , setFollowUpToggle] = useState(false)
 
     return(
         <div className = "createPage">
@@ -95,9 +96,48 @@ export function NewClaims(){
                         />
                 </Form.Group>
             </div>
-            
 
+            <div className="login-section">
+                <div className = "login-field">
+                    <Form.Group className="mb-1" controlId="exampleForm.ControlInput1">
+                        <Form.Label>Purpose of claim</Form.Label>
+                        <Form.Control 
+                            type="text" 
+                            placeholder="Purpose of claim" 
+                            name="last_name"
+                            // value={twoWayBind.username}
+                            // onChange = {updateFormField}
+                        />
+                    </Form.Group>
+                </div>
+            </div>
 
+            <div className="mb-3 d-flex">
+                <Form.Check 
+                    className = "followUpCheck" 
+                    inline label="Have follow up" 
+                    //name="tags_id" type='checkbox' 
+                    //id="inline-checkbox-1" 
+                    value = {toggleFollowUp}
+                    //checked={this.state.tags_id.includes(this.state.tagsData[idx]._id)}
+                    onChange = {()=>{setFollowUpToggle((prevState)=> {
+                        return !prevState
+                    })}}
+                />
+            </div>
+
+            {
+                toggleFollowUp ? 
+                <div>
+
+                <Form.Select aria-label="Default select example" name="variantId" /*onChange={updateFormField}*/>
+                {Array.from({ length: 2 }).map((_, idx) => (
+                    <option value= "1009">
+                        Car
+                    </option>
+                ))}
+                </Form.Select> </div> : <h1>No follow up claims</h1>
+            } 
         </div>
     )
 }
