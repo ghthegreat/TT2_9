@@ -1,7 +1,7 @@
 import express from 'express';
 import mysql from "mysql";
 import moment from "moment"; 
-import {create,remove,UserInsurance,userClaims} from "../controllers/auth.js"
+import {create,remove,userInsurance,userClaims} from "../controllers/controller.js"
 
 const router = express.Router();
 
