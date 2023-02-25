@@ -1,5 +1,6 @@
 import express from 'express';
 import mysql from "mysql";
+import moment from "moment"; 
 
 const router = express.Router();
 
@@ -22,10 +23,25 @@ router.patch("/editclaims", (req, res) => {
     const claimId = req.body.claimID;
     const claimAmt = req.body.claimAmt;
     const purpose = req.body.purpose;
+    const currentTime = updateStamp();
 
-    
+    db.query("UPDATE InsuranceClaims SET Amount =?, Purpose=?, LastEditedClaimDate = CONVERT_TZ(NOW(), 'UTC', '+8:00') WHERE ClaimID = ?", [claimAmt, purpose, claimId],async (err,results) =>{
+        if(err){
+            console.log(err.message)
+            res.status(404).json({message: "User does not exists"})
+        } else{
+            console.log(results)
+            res.status(200).json(results[1])
+        }
+          
+    })
 
 })
+
+function updateStamp() {
+    var stamp = moment().format("YYYY-MM-DD HH:MM:SS");
+    return stamp
+}
 
 
 export default router;
