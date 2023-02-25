@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Claim from './claim';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
@@ -15,6 +15,11 @@ const Dashboard = () => {
         console.log('searching');
     }
 
+    useEffect(() => {
+        
+
+
+    })
 
     return (
         <div>
