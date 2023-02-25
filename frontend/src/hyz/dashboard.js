@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Claim from './claim';
+import Claim from './Claim';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import axios from 'axios';
@@ -7,7 +7,7 @@ import {Link} from 'react-router-dom';
 import {ErrorPage} from '../ErrorPage';
 
 const Dashboard = () => {
-    
+
     // const [claimID, setClaimID] = useState('');
     // const [insuranceType, setInsuranceType] = useState('');
     // const [status, setStatus] = useState('');
@@ -19,13 +19,13 @@ const Dashboard = () => {
         e.preventDefault();
         console.log('searching');
 
-        
+
     }
 
 
     const c = window.localStorage.getItem("myTokens");
     if (!c){
-        return <ErrorPage></ErrorPage> 
+        return <ErrorPage></ErrorPage>
     }
 
 
@@ -39,8 +39,8 @@ const Dashboard = () => {
         }
         catch(err){
             console.error(err)
-        } 
-        
+        }
+
     }
     const a = getInsuranceClaim()
     console.log(a)
@@ -58,7 +58,7 @@ const Dashboard = () => {
     }
 /*
     useEffect(() => {
-        //getInsuranceClaim() 
+        //getInsuranceClaim()
     },[])
 
     useEffect(() => {
@@ -85,7 +85,7 @@ const Dashboard = () => {
                 <input type="submit" value="search" />
             </form>
 
-            
+
             <Table striped bordered hover>
                 <thead>
                     <tr>
@@ -97,9 +97,9 @@ const Dashboard = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {claims.length > 0 ? claims.map((claim) => (<Claim claimId={claim.claimId} insuranceType={claim.insuranceType} purpose={claim.purpose} amount={claim.amount} status={claim.status}/>)) :<td>User has no claims</td>}        
+                    {claims.length > 0 ? claims.map((claim) => (<Claim claimId={claim.claimId} insuranceType={claim.insuranceType} purpose={claim.purpose} amount={claim.amount} status={claim.status}/>)) :<td>User has no claims</td>}
                 </tbody>
-                  
+
             </Table>
             {/*<input type="button" value="Create" />*/}
             <Link to="create-claims"><Button variant="primary">Create</Button>{' '}</Link>
@@ -107,5 +107,5 @@ const Dashboard = () => {
 
       );
 }
- 
+
 export default Dashboard;
