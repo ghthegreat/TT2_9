@@ -11,13 +11,14 @@ const app = express()
 const PORT = 5000
 
 const db = mysql.createConnection({
-    host: 'awshackathondb.cnpaqptltymp.ap-northeast-1.rds.amazonaws.com',
-    user: 'root',
-    password: 'hackathon',
-    database: 'InsuranceData',
+    host: "awshackathondb.cnpaqptltymp.ap-northeast-1.rds.amazonaws.com",
+    user: "root",
+    password: "hackathon",
+    database: "InsuranceData",
     port: 3306
 })
 
+console.log(process.env.DATABASE_HOST)
 db.connect((err) => 
 {
     if(err)
