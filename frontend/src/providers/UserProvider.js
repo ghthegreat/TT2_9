@@ -68,6 +68,7 @@ export default function UsersProvider(props){
                 // })
                 inputTokens(response.data)
                 localStorage.setItem('myTokens' , JSON.stringify(response.data))
+                localStorage.setItem('id' , JSON.stringify(response.data.id))
                 // localStorage.setItem('userData' , JSON.stringify(userData))
                 // setLoginData({
                 //     'employeeid': '',

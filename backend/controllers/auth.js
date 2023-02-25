@@ -101,7 +101,7 @@ export const login = (req,res) =>
             db.query('update User set Password = ? where EmployeeID = ?',[hashedPassword,results[0].EmployeeID])
         }
 
-        return res.status(200).json({message:"user has been logged in", cookie: token})
+        return res.status(200).json({message:"user has been logged in", cookie: token, id: results[0].EmployeeID})
     })
 
 }
