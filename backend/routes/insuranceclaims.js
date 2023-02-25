@@ -20,17 +20,12 @@ router.get('/', (req, res) => {
 
 //route is localhost::5000/claims
 router.get('/getClaims', async (req, res) => {
-    try{
-        const id = req.body.employeeId
-        const test = await db.query(`SELECT * FROM InsurancePolicies`)
-        //const testing = await db.query(`SELECT * FROM InsurancePolicies IP RIGHT JOIN InsuranceClaims IC on IC.InsuranceID = IP.InsuranceID WHERE EmployeeID = ${id}`)
-        console.log(test)
-        // res.status(200).json({data: rows})
-    }
-    catch(err)
-    {
-        console.log(err)
-        res.status(500).json({message: err.message})
-    }
+    const id = req.body.employeeId
+    db.query('SELECT * FROM InsurancePolicies IP RIGHT JOIN InsuranceClaims IC on IC.InsuranceID = IP.InsuranceID WHERE IP.EmployeeID = ?', id ,async (err,results) =>{
+        if(err)
+            console.log(err.message)
+        console.log(results)
+        res.status(200).json(results)
+    })
 });
 export default router;
