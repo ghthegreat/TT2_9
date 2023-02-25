@@ -30,6 +30,7 @@ const Dashboard = () => {
             timeout: 5000
         })
         .then(res => {
+                
                 setClaims(res.data);
                 console.log(res.data);
         })
