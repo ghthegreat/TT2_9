@@ -1,6 +1,8 @@
 import React, {useState} from 'react'
 import Form from 'react-bootstrap/Form'
 import './EditClaims.css'
+import axios from 'axios';
+
 
 export function EditClaims(){
 
@@ -19,6 +21,7 @@ export function EditClaims(){
        }]
     const sampleData = testData[0]
     const [editClaims, setEditClaims] = useState({
+        'employeeId': "58001002",
         'Amount': sampleData['Amount'],
         'Purpose': sampleData['Purpose']
     })
@@ -47,6 +50,16 @@ export function EditClaims(){
             return prevState
         })
     }
+
+    const onEdit = () => {
+        console.log('button is working')
+        axios.put('http://localhost:5000/claims/editclaims', editClaims).then((res)=>{
+        console.log('worked')
+        console.log(res)
+        }
+        );
+
+    }
     return(
         <div className = "createPage">
             <h1>Edit Claims page</h1>
@@ -60,7 +73,7 @@ export function EditClaims(){
                             <Form.Label>{key}</Form.Label>
                             <Form.Control 
                                 type="text" 
-                                placeholder={`Please input ${key}`}
+                                placeholder={sampleData[key]}
                                 name={key}
                                 disabled={!editableFields[key]}
                                 onChange = {
@@ -68,7 +81,6 @@ export function EditClaims(){
                                         onEditField(e.target.value, key)
                                     }
                                 }
-                                //value=
                                 // onChange = {updateFormField}
                             />
                         </Form.Group>
@@ -79,7 +91,9 @@ export function EditClaims(){
                 )
             })}
 
-
+<button onClick={() => {
+    onEdit()
+}}>Edit</button>
         </div>
     )
 }
