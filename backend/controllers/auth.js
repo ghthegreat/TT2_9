@@ -44,7 +44,7 @@ export const register = (req,res) =>
                     console.log(results)
                     return res.status(200).json({message: "user created successfully"})
                 }
-                
+
             })
         })
     }
@@ -62,7 +62,7 @@ export const login = (req,res) =>
     db.query('SELECT * FROM User WHERE EmployeeID = ?',[employeeid],async(err,results) =>
     {
         if(err) throw err
-  
+
         //check if username is right
         if(!results[0]) return res.status(400).json({message: "incorrect id or password"})
 
@@ -79,8 +79,8 @@ export const login = (req,res) =>
         {
             console.log('didnt manage to do bcrypt check')
             return res.status(400).json({message: "incorrect id or password"})
-        } 
- 
+        }
+
         //succesful login
         const token = jwt.sign({id: results[0].EmployeeID },JWT_SECRET, {
              expiresIn: JWT_EXPIRES,
@@ -88,7 +88,7 @@ export const login = (req,res) =>
 
         const cookieOptions ={
             expiresIn: new Date(Date.now() + COOKIE_EXPIRES * 24 * 60 * 60 * 1000),
-            httpOnly: true
+            httpOnly: false
         }
 
         res.cookie("userRegistered",token, cookieOptions);
@@ -101,7 +101,7 @@ export const login = (req,res) =>
             db.query('update User set Password = ? where EmployeeID = ?',[hashedPassword,results[0].EmployeeID])
         }
 
-        return res.status(200).json({message:"user has been logged in"})
+        return res.status(200).json({message:"user has been logged in", cookie: token})
     })
 
 }
@@ -111,7 +111,7 @@ export const isLoggedIn = async (req, res, next) => {
         try {
             // 1. Verify the token
             const decoded = await jwt.verify(req.cookies.userRegistered,
-                process.env.JWT_SECRET
+                JWT_SECRET
             );
             console.log(decoded);
 
