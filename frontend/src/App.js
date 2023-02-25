@@ -1,15 +1,13 @@
-//import './App.css';
-import "./"
+
 import {
   BrowserRouter as Router,
   Route,
   Routes,
 } from 'react-router-dom'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import {HomePage} from './HomePage';
 import {ErrorPage} from './ErrorPage';
-//import {loginForm} from './login-pranati/loginForm';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import LoginForm from "./login-pranati/LoginForm";
+import {NewClaims} from './create-claims-jh/NewClaims'
 
 
 function App() {
@@ -17,7 +15,8 @@ function App() {
     <Router>
       <Routes >
       <Route path="/test" element={<ErrorPage></ErrorPage>}></Route>
-      <Route path="/login" element={<LoginForm/>}></Route>  
+      <Route path="/create-claims" element = {<NewClaims/>}></Route>
+
         <Route index element={<HomePage></HomePage>}>
 
         {/* add new route here
