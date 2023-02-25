@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
     res.send("Default page")
 });
 router.post('/', create)
-router.post('/', delete)
+router.post('/', remove)
 
 
 export default router;
