@@ -57,7 +57,6 @@ export default function LoginPage() {
                     </Form.Group>
 
                     <a class="btn btn-dark btn-outline-light mt-3" onClick = {loginAccount}>Login</a>
-                    <div><a id="create-account-link" href = "/register">Create account</a></div>
                 </div>
             </div>
         </React.Fragment>
