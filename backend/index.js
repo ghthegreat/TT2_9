@@ -28,9 +28,7 @@ db.connect((err) =>
         console.log('database connected')
 })
 
-app.use(cors({
-    origin: 'http://localhost:3000'
-}));
+app.use(cors());
 app.use(cookieParser())
 app.set('view-engine', 'html')
 app.use(express.urlencoded({ extended: false }));
