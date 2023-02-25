@@ -61,27 +61,27 @@ export default function UsersProvider(props){
             const response = await axios.post("http://localhost:5000/auth/login" , loginData)
             if(response.data){
                 // console.log("This is response.data ==> " , response.data)
-                const userData = await axios.get(BASE_URL + "/profile" , {
-                    headers: {
-                        Authorization: `Bearer ${response.data.accessToken}`,
-                    }
-                })
+                // const userData = await axios.get(BASE_URL + "/profile" , {
+                //     headers: {
+                //         Authorization: `Bearer ${response.data.accessToken}`,
+                //     }
+                // })
                 inputTokens(response.data)
                 localStorage.setItem('myTokens' , JSON.stringify(response.data))
-                localStorage.setItem('userData' , JSON.stringify(userData))
-                setLoginData({
-                    'employeeid': '',
-                    'password': ''
-                })
-                toast.success('Welcome back!', {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                });
+                // localStorage.setItem('userData' , JSON.stringify(userData))
+                // setLoginData({
+                //     'employeeid': '',
+                //     'password': ''
+                // })
+                // toast.success('Welcome back!', {
+                //     position: "top-right",
+                //     autoClose: 5000,
+                //     hideProgressBar: false,
+                //     closeOnClick: true,
+                //     pauseOnHover: true,
+                //     draggable: true,
+                //     progress: undefined,
+                // });
             }
             return true
         },
