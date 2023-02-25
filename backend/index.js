@@ -4,6 +4,7 @@ import mysql from 'mysql2';
 import cookieParser from 'cookie-parser';
 import claimsRoutes from "./routes/insuranceclaims.js"
 import authRoutes from "./routes/authentication.js"
+import cors from 'cors'
 
 dotenv.config()
 
@@ -26,6 +27,9 @@ db.connect((err) =>
         console.log('database connected')
 })
 
+app.use(cors({
+    origin: 'http://localhost:3000'
+}));
 app.use(cookieParser())
 app.set('view-engine', 'html')
 app.use(express.urlencoded({ extended: false }));
