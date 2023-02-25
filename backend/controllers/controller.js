@@ -25,14 +25,14 @@ export const create = (req, res) => {
   );
 };
 
-export const delete = (req, res) => {
+export const remove = (req, res) => {
   console.log(req.body);
   // missing data condition
   const claimID = req.body.claimID;
   db.query(
     "INSDELETE FROM InsuranceClaims WHERE ClaimID = ?",
     claimID,
-    async (err, result) => {
+    async (err, result) {
       if (err) {
         console.log(err.message);
 
