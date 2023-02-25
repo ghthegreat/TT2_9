@@ -66,7 +66,10 @@ const Dashboard = () => {
 
     return (
         <div className='content'>
-            <h1>Dashboard</h1>
+            <div className='headcontainer'>
+                <h1 className="dashheader">Dashboard</h1>
+                <Button className='logout' variant="danger">Logout</Button>{' '}
+            </div>
 
             <form action="" className='fields'>
 
@@ -77,7 +80,7 @@ const Dashboard = () => {
                 <input type="submit" value="search" />
             </form>
 
-
+            
             <Table striped bordered hover>
                 <thead>
                     <tr>
