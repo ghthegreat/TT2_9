@@ -7,6 +7,7 @@ import {Link} from 'react-router-dom';
 import {ErrorPage} from '../ErrorPage';
 
 const Dashboard = () => {
+    
     // const [claimID, setClaimID] = useState('');
     // const [insuranceType, setInsuranceType] = useState('');
     // const [status, setStatus] = useState('');
@@ -29,19 +30,20 @@ const Dashboard = () => {
 
 
     // GET REQUEST insurance claim
-    function getInsuranceClaim() {
-        axios
-        .get('http://localhost:5000/claims/getClaims', {
-            timeout: 5000
-        })
-        .then(res => {
-                
-                setClaims(res.data);
-                console.log(res.data);
-        })
-        .catch(err => console.error(err));
+    async function getInsuranceClaim() {
+        try{
+            const result = await axios.get('http://localhost:5000/claims/getClaims')
+            setClaims(result.data);
+            console.log(result.data);
+             //return result;
+        }
+        catch(err){
+            console.error(err)
+        } 
+        
     }
-
+    const a = getInsuranceClaim()
+    console.log(a)
     // GET REQUEST insurance policy
     function getInsurancePolicy(){
         axios
