@@ -73,7 +73,6 @@ export function NewClaims(){
                         <Form.Label>Claim amount</Form.Label>
                         <Form.Control 
                             type="number" 
-                            pattern = '/^([1-9][0-9]*)$/'
                             max = "10"
                             placeholder="Input claim amount" 
                             name="amount"
