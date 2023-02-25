@@ -1,15 +1,20 @@
-const mysql = require('mysql')
-const bcrypt = require('bycrypt')
-const jwt = require('jsonwebtoken')
+import mysql from 'mysql'
+import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
+
+const JWT_SECRET= 'asjkdlkajklsdjklsznxm,cnm,12839018293'
+const JWT_EXPIRES= '90h'
+const COOKIE_EXPIRES= 90
 
 const db = mysql.createConnection({
-    host: process.env.DATABASE_HOST,
-    user: process.env.DATABASE_USER,
-    password: process.env.DATABASE_PW,
-    database: process.env.DATABASE_NAME
+    host: 'awshackathondb.cnpaqptltymp.ap-northeast-1.rds.amazonaws.com',
+    user: 'root',
+    password: 'hackathon',
+    database: 'InsuranceData',
+    port: 3306
 })
 
-exports.register = (req,res) =>
+export const register = (req,res) =>
 {
     console.log(req.body)
     const{employeeid,password} = req.body
@@ -45,11 +50,11 @@ exports.register = (req,res) =>
     }
 }
 
-exports.login = (req,res) =>
+export const login = (req,res) =>
 {
-    //console.log(req.body)N
-    employeeid = req.body.employeeid
-    password = req.body.password
+    console.log(req.body)
+    var employeeid = req.body.employeeid
+    var password = req.body.password
 
     console.log('id' + employeeid)
     if(!employeeid || !password) return res.status(400).json({message: "Please enter your id and password"})
@@ -77,12 +82,12 @@ exports.login = (req,res) =>
         } 
  
         //succesful login
-        const token = jwt.sign({id: results[0].EmployeeID },process.env.JWT_SECRET, {
-             expiresIn: process.env.JWT_EXPIRES,
+        const token = jwt.sign({id: results[0].EmployeeID },JWT_SECRET, {
+             expiresIn: JWT_EXPIRES,
         })
 
         const cookieOptions ={
-            expiresIn: new Date(Date.now() + process.env.COOKIE_EXPIRES * 24 * 60 * 60 * 1000),
+            expiresIn: new Date(Date.now() + COOKIE_EXPIRES * 24 * 60 * 60 * 1000),
             httpOnly: true
         }
 
@@ -93,7 +98,7 @@ exports.login = (req,res) =>
             console.log('this is the password i wanna ecrypt: ' + results[0].Password)
             let hashedPassword = await bcrypt.hash(results[0].Password,10)
             console.log(hashedPassword)
-            db.query('update User set Password = ? where UserID = ?',[hashedPassword,results[0].EmployeeID])
+            db.query('update User set Password = ? where EmployeeID = ?',[hashedPassword,results[0].EmployeeID])
         }
 
         return res.status(200).json({message:"user has been logged in"})
@@ -101,7 +106,7 @@ exports.login = (req,res) =>
 
 }
 
-exports.isLoggedIn = async (req, res, next) => {
+export const isLoggedIn = async (req, res, next) => {
     if (req.cookies.userRegistered) {
         try {
             // 1. Verify the token
@@ -131,7 +136,7 @@ exports.isLoggedIn = async (req, res, next) => {
     }
 }
 
-exports.logout = (req,res) =>
+export const logout = (req,res) =>
 {
     res.cookie('userRegistered', 'logout', {
         expires: new Date(Date.now() - 2 * 1000),
@@ -139,3 +144,4 @@ exports.logout = (req,res) =>
     });
     res.status(200).json({message: "successfully logged out"});
 }
+
