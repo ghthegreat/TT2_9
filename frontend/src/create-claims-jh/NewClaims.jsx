@@ -49,16 +49,6 @@ export function NewClaims(){
                             // onChange = {updateFormField}
                         />
                     </Form.Group>
-                    <Form.Group className="mb-1" controlId="exampleForm.ControlInput1">
-                        <Form.Label>Date of Expense</Form.Label>
-                        <Form.Control 
-                            type="date" 
-                            placeholder="DD/MM/YYYY" 
-                            name="date"
-                            // value={twoWayBind.username}
-                            // onChange = {updateFormField}
-                        />
-                    </Form.Group>
                 </div>
             </div>
 
@@ -92,6 +82,20 @@ export function NewClaims(){
                     </Form.Group>
                 </div>
             </div>
+
+            <div>
+                <Form.Group className="mb-1" controlId="exampleForm.ControlInput1">
+                    <Form.Label>Date of Expense</Form.Label>
+                        <Form.Control 
+                            type="date" 
+                            placeholder="DD/MM/YYYY" 
+                            name="date"
+                            // value={twoWayBind.username}
+                            // onChange = {updateFormField}
+                        />
+                </Form.Group>
+            </div>
+            
 
 
         </div>
